@@ -1,4 +1,11 @@
 *.log
 *.pot
 *.pyc
+dev.db
 local_settings.py
+
+/static/*
+
+tags
+PYSMELL*
+
