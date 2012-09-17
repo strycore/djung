@@ -34,6 +34,5 @@ you can (and probably should) rename the example application using the same meth
     grep -r --exclude=README.md  frontend *
 
 
-
 Note to other Django boilerplate authors: Please stop putting your Django apps
 in a separate "apps" folder.
