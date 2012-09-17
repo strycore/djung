@@ -25,14 +25,3 @@ You can quickly create a django project using this boilerplate with django-admin
 
     django-admin.py startproject --template https://github.com/strycore/djung/zipball/master project_name
 
-using grep find all the places containing "djung" and replace them with your project name
-
-    grep -ri --exclude=README.md djung *
-
-you can (and probably should) rename the example application using the same method:
-
-    grep -r --exclude=README.md  frontend *
-
-
-Note to other Django boilerplate authors: Please stop putting your Django apps
-in a separate "apps" folder.
