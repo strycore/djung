@@ -31,7 +31,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'compressor',
-    'frontend',
+    'main',
 )
 
 # Localization

@@ -1,4 +1,4 @@
-"""Frontend app views"""
+"""Main app views"""
 
 from django.shortcuts import render
 
