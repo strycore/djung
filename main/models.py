@@ -1,9 +1,9 @@
 from django.db import models
-from django.contric.auth.models import User
+from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
 
-#class MyModel(models.Model):
+#class Document(models.Model):
 #    title = models.CharField(max_length=255)
 #    slug = models.SlugField()
 #    author = models.ForeignKey(User)
