@@ -8,9 +8,9 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 SITE_ID = 1
-ROOT_URLCONF = 'djung.urls'
-WSGI_APPLICATION = 'djung.wsgi.application'
-SECRET_KEY = 'this is my super secret key'
+ROOT_URLCONF = '{{ project_name }}.urls'
+WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
+SECRET_KEY = '{{ secret_key }}'
 
 # Databases
 DATABASES = {
@@ -83,7 +83,7 @@ LOGIN_REDIRECT_URL = "/"
 
 # Email
 DEFAULT_FROM_EMAIL = "admin@example.com"
-EMAIL_SUBJECT_PREFIX = "[Djung]"
+EMAIL_SUBJECT_PREFIX = "[{{ project_name }}]"
 
 # Logging
 LOGGING = {
