@@ -1,5 +1,7 @@
 """Main app views"""
 
+# pylint: disable=E1101
+
 from django.shortcuts import render
 
 
