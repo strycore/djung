@@ -27,7 +27,7 @@
 
     Alias /robots.txt %ROOT%/%PROJECT%/static/robots.txt
 
-    ErrorLog /var/log/apache2/%DOMAINROJECT%_error.log
+    ErrorLog /var/log/apache2/%DOMAIN%_error.log
     LogLevel info
     CustomLog /var/log/apache2/%DOMAIN%_access.log combined
 </VirtualHost>
