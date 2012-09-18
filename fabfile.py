@@ -67,10 +67,10 @@ def requirements():
 
 def update_vhost():
     local('cp config/%(project)s.vhost /tmp' % env)
-    local('sed -i s#%%ROOT%%#%(root)s#g /tmp/%(project)s.conf' % env)
-    local('sed -i s/%%PROJECT%%/%(project)s/g /tmp/%(project)s.conf' % env)
-    local('sed -i s/%%ENV%%/%(environment)s/g /tmp/%(project)s.conf' % env)
-    local('sed -i s/%%DOMAIN%%/%(domain)s/g /tmp/%(project)s.conf' % env)
+    local('sed -i s#%%ROOT%%#%(root)s#g /tmp/%(project)s.vhost' % env)
+    local('sed -i s/%%PROJECT%%/%(project)s/g /tmp/%(project)s.vhost' % env)
+    local('sed -i s/%%ENV%%/%(environment)s/g /tmp/%(project)s.vhost' % env)
+    local('sed -i s/%%DOMAIN%%/%(domain)s/g /tmp/%(project)s.vhost' % env)
     put('/tmp/%(project)s.vhost' % env, '%(root)s' % env)
     sudo('cp %(root)s/%(project)s.vhost ' % env +
          '/etc/apache2/sites-available/%(domain)s' % env, shell=False)
@@ -118,7 +118,14 @@ def collect_static():
 
 
 def configtest():
-    run("apache2ctl configtest")
+    sudo("apache2ctl configtest")
+
+
+def fix_perms():
+    with cd(env.code_root):
+        run("mkdir -p media")
+        sudo("chown -R www-data.www-data media")
+        sudo("chown -R www-data.www-data static")
 
 
 def deploy():
@@ -128,4 +135,5 @@ def deploy():
     collect_static()
     update_vhost()
     configtest()
+    fix_perms()
     apache_reload()
