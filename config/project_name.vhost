@@ -1,0 +1,31 @@
+<VirtualHost *:80>
+    WSGIScriptReloading On
+    WSGIDaemonProcess %PROJECT%-%ENV%
+    WSGIProcessGroup %PROJECT%-%ENV%
+    WSGIApplicationGroup %PROJECT%-%ENV%
+    WSGIPassAuthorization On
+
+    WSGIScriptAlias / %ROOT%/%ENV%/%PROJECT%/config/%PROJECT%.wsgi
+
+    ServerName %PROJECT%.%DOMAIN%
+
+    <Location "/">
+        Order Allow,Deny
+        Allow from all
+    </Location>
+
+    <Location "/static">
+        SetHandler None
+    </Location>
+    Alias /static %ROOT%/%ENV%/%PROJECT%/static
+
+    <Location "/media">
+        SetHandler None
+    </Location>
+    Alias /media %ROOT%/%ENV%/%PROJECT%/media
+
+    ErrorLog /var/log/apache2/%PROJECT%_%ENV%_error.log
+    LogLevel info
+    CustomLog /var/log/apache2/%PROJECT%_%ENV%_access.log combined
+</VirtualHost>
+
