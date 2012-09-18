@@ -11,16 +11,12 @@ RSYNC_EXCLUDE = (
     '*.pyc',
     '*.db',
     'fabfile.py',
-    'bootstrap.py',
-    'reload',
-    'save-fixtures',
     'media/*',
     'static',
 )
 
-env.home = '/var/www/{{ project_name }}'
+env.home = '/srv/django'
 env.project = '{{ project_name }}'
-DOMAIN = '{{ project_name }}.com'
 
 
 def _setup_path():
@@ -31,13 +27,17 @@ def _setup_path():
 def staging():
     env.user = 'django'
     env.environment = 'staging'
-    env.hosts = [DOMAIN]
-    env.host = DOMAIN
+    env.domain = "dev.{{ project_name }}.com"
+    env.hosts = [env.domain]
     _setup_path()
 
 
 def production():
-    utils.abort("No production server defined")
+    env.user = 'django'
+    env.environment = 'production'
+    env.domain = '{{ project_name }}.com'
+    env.hosts = [env.domain]
+    _setup_path()
 
 
 def touch():
@@ -54,25 +54,28 @@ def apache_reload():
 
 def initial_setup():
     """Setup virtualenv"""
-    sudo('pip install virtualenv', shell=False)
-    run('mkdir -p %(home)s' % env)
-    with cd(env.home):
-        run('virtualenv --no-site-packages %(environment)s' % env)
+    run('mkdir -p %(root)s' % env)
+    with cd(env.root):
+        run('virtualenv --no-site-packages .')
+
+
+def bootstrap():
     put('requirements.txt', env.root)
     with cd(env.root):
-        run('. ./bin/activate; pip install -r requirements.txt')
+        run('source ./bin/activate && '
+            'pip install --requirement requirements.txt')
 
 
 def update_vhost():
-    local('cp config/%(project)s.conf /tmp' % env)
-    local('sed -i s#%%ROOT%%#%(home)s#g /tmp/%(project)s.conf' % env)
+    local('cp config/%(project)s.vhost /tmp' % env)
+    local('sed -i s#%%ROOT%%#%(root)s#g /tmp/%(project)s.conf' % env)
     local('sed -i s/%%PROJECT%%/%(project)s/g /tmp/%(project)s.conf' % env)
     local('sed -i s/%%ENV%%/%(environment)s/g /tmp/%(project)s.conf' % env)
-    local('sed -i s/%%DOMAIN%%/%(host)s/g /tmp/%(project)s.conf' % env)
-    put('/tmp/%(project)s.conf' % env, '%(root)s' % env)
-    sudo('cp %(root)s/%(project)s.conf ' % env +
-         '/etc/apache2/sites-available/%(project)s' % env, shell=False)
-    sudo('a2ensite %(project)s' % env, shell=False)
+    local('sed -i s/%%DOMAIN%%/%(domain)s/g /tmp/%(project)s.conf' % env)
+    put('/tmp/%(project)s.vhost' % env, '%(root)s' % env)
+    sudo('cp %(root)s/%(project)s.vhost ' % env +
+         '/etc/apache2/sites-available/%(domain)s' % env, shell=False)
+    sudo('a2ensite %(domain)s' % env, shell=False)
 
 
 def rsync():
@@ -95,7 +98,22 @@ def copy_local_settings():
             run('mv local_settings_%(environment)s.py local_settings.py' % env)
 
 
-def collectstatic():
+def syncdb():
+    require('code_root', provided_by=('stating', 'production'))
+    with cd(env.code_root):
+        run("source ../bin/activate; "
+            "python manage.py syncdb --noinput")
+
+
+def migrate():
+    require('code_root', provided_by=('stating', 'production'))
+    with cd(env.code_root):
+        run("source ../bin/activate; "
+            "python manage.py migrate")
+
+
+def collect_static():
+    require('code_root', provided_by=('stating', 'production'))
     with cd(env.code_root):
         run('source ../bin/activate; python manage.py collectstatic --noinput')
 
@@ -107,7 +125,7 @@ def configtest():
 def deploy():
     rsync()
     copy_local_settings()
-    collectstatic()
+    collect_static()
     update_vhost()
     configtest()
     apache_reload()
