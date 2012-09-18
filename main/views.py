@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 """Main app views"""
 
 # pylint: disable=E1101
