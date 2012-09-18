@@ -5,9 +5,10 @@
     WSGIApplicationGroup %PROJECT%-%ENV%
     WSGIPassAuthorization On
 
-    WSGIScriptAlias / %ROOT%/%ENV%/%PROJECT%/%PROJECT%/wsgi.py
+    WSGIScriptAlias / %ROOT%/%PROJECT%/%PROJECT%/wsgi.py
 
-    ServerName %PROJECT%.%DOMAIN%
+    ServerName %DOMAIN%
+    ServerAlias www.%DOMAIN%
 
     <Location "/">
         Order Allow,Deny
@@ -17,15 +18,17 @@
     <Location "/static">
         SetHandler None
     </Location>
-    Alias /static %ROOT%/%ENV%/%PROJECT%/static
+    Alias /static %ROOT%/%PROJECT%/static
 
     <Location "/media">
         SetHandler None
     </Location>
-    Alias /media %ROOT%/%ENV%/%PROJECT%/media
+    Alias /media %ROOT%/%PROJECT%/media
 
-    ErrorLog /var/log/apache2/%PROJECT%_%ENV%_error.log
+    Alias /robots.txt %ROOT%/%PROJECT%/static/robots.txt
+
+    ErrorLog /var/log/apache2/%DOMAINROJECT%_error.log
     LogLevel info
-    CustomLog /var/log/apache2/%PROJECT%_%ENV%_access.log combined
+    CustomLog /var/log/apache2/%DOMAIN%_access.log combined
 </VirtualHost>
 
