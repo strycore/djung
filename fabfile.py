@@ -11,7 +11,6 @@ RSYNC_EXCLUDE = (
     '*.db',
     'fabfile.py',
     'media/*',
-    'static',
 )
 
 env.home = '/srv/django'
@@ -111,7 +110,7 @@ def migrate():
             "python manage.py migrate")
 
 
-def collect_static():
+def collectstatic():
     require('code_root', provided_by=('stating', 'production'))
     with cd(env.code_root):
         run('source ../bin/activate; python manage.py collectstatic --noinput')
@@ -121,18 +120,19 @@ def configtest():
     sudo("apache2ctl configtest")
 
 
-def fix_perms():
+def fix_perms(user="www-data"):
     with cd(env.code_root):
         run("mkdir -p media")
-        sudo("chown -R www-data.www-data media")
-        sudo("chown -R www-data.www-data static")
+        sudo("chown -R %s.%s media" % (user, user))
+        sudo("chown -R %s.%s static" % (user, user))
 
 
 def deploy():
     requirements()
     rsync()
+    fix_perms(env.user)
     copy_local_settings()
-    collect_static()
+    collectstatic()
     update_vhost()
     configtest()
     fix_perms()
