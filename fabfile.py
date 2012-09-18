@@ -1,5 +1,4 @@
 from os.path import join, exists
-from fabric import utils
 from fabric.api import run, env, local, sudo, put, require, cd
 from fabric.contrib.project import rsync_project
 
@@ -20,7 +19,7 @@ env.project = '{{ project_name }}'
 
 
 def _setup_path():
-    env.root = join(env.home, env.environment)
+    env.root = join(env.home, env.domain)
     env.code_root = join(env.root, env.project)
 
 
@@ -59,7 +58,7 @@ def initial_setup():
         run('virtualenv --no-site-packages .')
 
 
-def bootstrap():
+def requirements():
     put('requirements.txt', env.root)
     with cd(env.root):
         run('source ./bin/activate && '
@@ -123,6 +122,7 @@ def configtest():
 
 
 def deploy():
+    requirements()
     rsync()
     copy_local_settings()
     collect_static()
