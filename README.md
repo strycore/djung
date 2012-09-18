@@ -25,3 +25,8 @@ You can quickly create a django project using this boilerplate with django-admin
 
     django-admin.py startproject --template https://github.com/strycore/djung/zipball/master project_name
 
+Oneliner to create a project and push it to your staging server (assumes you 
+have cloned the repository and changed the domain in fabfile.py)
+
+    mkvirtualenv -i django foo; django-admin.py startproject --template djung foo; cd foo; fab staging setup; fab staging deploy
+
