@@ -5,7 +5,7 @@
     WSGIApplicationGroup %PROJECT%-%ENV%
     WSGIPassAuthorization On
 
-    WSGIScriptAlias / %ROOT%/%ENV%/%PROJECT%/config/%PROJECT%.wsgi
+    WSGIScriptAlias / %ROOT%/%ENV%/%PROJECT%/%PROJECT%/wsgi.py
 
     ServerName %PROJECT%.%DOMAIN%
 

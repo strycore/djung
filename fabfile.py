@@ -1,4 +1,4 @@
-from os.path import join
+from os.path import join, exists
 from fabric import utils
 from fabric.api import run, env, local, sudo, put, require, cd
 from fabric.contrib.project import rsync_project
@@ -56,11 +56,11 @@ def initial_setup():
     """Setup virtualenv"""
     sudo('pip install virtualenv', shell=False)
     run('mkdir -p %(home)s' % env)
-    run('cd %(home)s; virtualenv --no-site-packages %(environment)s' % env)
+    with cd(env.home):
+        run('virtualenv --no-site-packages %(environment)s' % env)
     put('requirements.txt', env.root)
-    run('cd %(root)s ; ' % env +
-        'source ./bin/activate ; ' +
-        'pip install -E %(root)s --requirement requirements.txt' % env)
+    with cd(env.root):
+        run('. ./bin/activate; pip install -r requirements.txt')
 
 
 def update_vhost():
@@ -88,9 +88,11 @@ def rsync():
 
 def copy_local_settings():
     require('code_root', provided_by=('staging', 'production'))
-    put('config/local_settings_%(environment)s.py' % env, env.code_root)
-    with cd(env.code_root):
-        run('mv local_settings_%(environment)s.py local_settings.py' % env)
+    local_settings = 'config/local_settings_%(environment)s.py' % env
+    if exists(local_settings):
+        put(local_settings, env.code_root)
+        with cd(env.code_root):
+            run('mv local_settings_%(environment)s.py local_settings.py' % env)
 
 
 def collectstatic():
