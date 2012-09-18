@@ -1,4 +1,3 @@
 Django
 django-compressor
 South
-Fabric
