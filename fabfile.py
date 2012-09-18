@@ -26,7 +26,7 @@ def _setup_path():
 def staging():
     env.user = 'django'
     env.environment = 'staging'
-    env.domain = "dev.{{ project_name }}.com"
+    env.domain = "{{ project_name }}.strycore.com"
     env.hosts = [env.domain]
     _setup_path()
 
@@ -51,7 +51,7 @@ def apache_reload():
     sudo('service apache2 reload', shell=False)
 
 
-def initial_setup():
+def setup():
     """Setup virtualenv"""
     run('mkdir -p %(root)s' % env)
     with cd(env.root):
@@ -94,7 +94,7 @@ def copy_local_settings():
     if exists(local_settings):
         put(local_settings, env.code_root)
         with cd(env.code_root):
-            run('mv local_settings_%(environment)s.py %s(project)/local_settings.py' % env)
+            run('mv local_settings_%(environment)s.py %(project)s/local_settings.py' % env)
 
 
 def syncdb():
@@ -124,14 +124,17 @@ def configtest():
 def fix_perms(user="www-data"):
     with cd(env.code_root):
         run("mkdir -p media")
+        run("mkdir -p db")
+        run("mkdir -p static")
         sudo("chown -R %s.%s media" % (user, user))
+        sudo("chown -R %s.%s db" % (user, user))
         sudo("chown -R %s.%s static" % (user, user))
 
 
 def deploy():
     requirements()
-    fix_perms(env.user)
     rsync()
+    fix_perms(env.user)
     copy_local_settings()
     collectstatic()
     update_vhost()
