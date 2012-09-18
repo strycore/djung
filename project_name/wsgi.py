@@ -1,5 +1,5 @@
 """
-WSGI config for ovatio project.
+WSGI config for {{ project_name }} project.
 
 This module contains the WSGI application used by Django's development server
 and any production WSGI deployments. It should expose a module-level variable
@@ -14,6 +14,17 @@ framework.
 
 """
 import os
+import sys
+import site
+from os.path import dirname, abspath, join
+
+PROJECT = '{{ project_name }}'
+PROJECT_ROOT = dirname(dirname(dirname(abspath(__file__))))
+site_packages = join(PROJECT_ROOT,
+                     'lib/python2.7/site-packages')
+site.addsitedir(abspath(site_packages))
+sys.path.insert(0, PROJECT_ROOT)
+sys.path.append(join(PROJECT_ROOT, PROJECT))
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ project_name }}.settings")
 
