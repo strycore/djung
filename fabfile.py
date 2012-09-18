@@ -11,6 +11,7 @@ RSYNC_EXCLUDE = (
     '*.db',
     'fabfile.py',
     'media/*',
+    'static/CACHE'
 )
 
 env.home = '/srv/django'
@@ -93,7 +94,7 @@ def copy_local_settings():
     if exists(local_settings):
         put(local_settings, env.code_root)
         with cd(env.code_root):
-            run('mv local_settings_%(environment)s.py local_settings.py' % env)
+            run('mv local_settings_%(environment)s.py %s(project)/local_settings.py' % env)
 
 
 def syncdb():
@@ -129,8 +130,8 @@ def fix_perms(user="www-data"):
 
 def deploy():
     requirements()
-    rsync()
     fix_perms(env.user)
+    rsync()
     copy_local_settings()
     collectstatic()
     update_vhost()
