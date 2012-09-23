@@ -1,0 +1,22 @@
+[
+  {
+    "pk": 1,
+    "model": "auth.user",
+    "fields": {
+      "email": "root@localhost",
+      "is_active": true,
+      "is_staff": true,
+      "is_superuser": true,
+      "username": "admin",
+      "password": "pbkdf2_sha256$10000$meCTscq52qNI$EMeI6p6lfkavAitvt3fnJro8TdgwWKrl1tlvY5b/CJ4="
+    }
+  },
+  {
+    "pk": 1,
+    "model": "sites.site",
+    "fields": {
+      "domain": "127.0.0.1:8000",
+      "name": "localhost"
+    }
+  }
+]
