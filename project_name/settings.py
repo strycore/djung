@@ -36,6 +36,9 @@ INSTALLED_APPS = (
     'main',
 )
 
+# Nosetests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
 # Localization
 TIME_ZONE = 'Europe/Paris'
 LANGUAGE_CODE = 'en-us'
