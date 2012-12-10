@@ -6,3 +6,6 @@ syncdb:
 
 test:
 	./manage.py test
+
+deps:
+	pip install -r requirements.txt
