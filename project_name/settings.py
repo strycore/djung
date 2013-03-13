@@ -1,4 +1,4 @@
-# -*- coding: utf8 -*-
+# -*- coding: utf-8 -*-
 from os.path import join, dirname, abspath
 
 PROJECT_ROOT = dirname(dirname(abspath(__file__)))
