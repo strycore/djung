@@ -15,7 +15,7 @@ test:
 	./manage.py test
 
 deps:
-	pip install -r requirements.txt --exists-action=s --verbose
+	pip install -r config/requirements.pip --exists-action=s --verbose
 
 clean:
 	find . -name "*.pyc" -delete
