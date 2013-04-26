@@ -11,8 +11,8 @@ RSYNC_EXCLUDE = (
     '*.pyc',
     '*.db',
     'fabfile.py',
-    'media/*',
-    'static/CACHE'
+    'media',
+    'static'
 )
 
 env.home = '/srv/django'
@@ -163,11 +163,10 @@ def configtest():
 def fix_perms(user="www-data"):
     with cd(env.code_root):
         run("mkdir -p media")
-        run("mkdir -p db")
         run("mkdir -p static")
-        sudo("chown -R %s.%s media" % (user, user))
-        sudo("chown -R %s.%s db" % (user, user))
-        sudo("chown -R %s.%s static" % (user, user))
+        sudo("chmod -R ug+w .")
+        sudo("chown -R %s.%s media" % (user, env.user))
+        sudo("chown -R %s.%s static" % (user, env.user))
 
 
 @task
