@@ -1,5 +1,6 @@
 Django
 django-compressor
+Fabric
 South
 nose
 django-nose
