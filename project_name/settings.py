@@ -5,7 +5,7 @@ PROJECT_ROOT = dirname(dirname(abspath(__file__)))
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 ADMINS = (
-    ('Your Name', 'yourname@example.com'),
+    ('Your Name', 'yourname@{{ project_name }}.com'),
 )
 MANAGERS = ADMINS
 SITE_ID = 1
@@ -32,8 +32,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+
     'compressor',
     'south',
+
     'main',
 )
 
@@ -98,8 +100,8 @@ ACCOUNT_ACTIVATION_DAYS = 3
 LOGIN_REDIRECT_URL = "/"
 
 # Email
-DEFAULT_FROM_EMAIL = "admin@example.com"
-EMAIL_SUBJECT_PREFIX = "[{{ project_name }}]"
+DEFAULT_FROM_EMAIL = "admin@{{ project_name }}.com"
+EMAIL_SUBJECT_PREFIX = "{{ project_name }}"
 
 # Logging
 LOGGING = {
@@ -121,17 +123,25 @@ LOGGING = {
     },
     'handlers': {
         'mail_admins': {
-            'level': 'DEBUG',
+            'level': 'ERROR',
             'include_html': True,
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'syslog': {
+            'level': 'INFO',
+            'class': 'logging.handlers.SysLogHandler',
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'syslog'],
             'level': 'ERROR',
-            'propagate': True,
+        },
+        'main': {
+            'handlers': ['mail_admins', 'syslog'],
+            'level': 'ERROR',
         },
     }
 }
