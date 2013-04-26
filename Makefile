@@ -42,6 +42,9 @@ mysqlbackup:
 	@gzip $(MYSQL_BACKUP)
 	@echo "$(MYSQL_BACKUP).gz"
 
+pylint:
+	pylint --rcfile=config/pylintrc .
+
 ctags:
 	ctags -R --languages=python --python-kinds=-v ${VIRTUAL_ENV}/lib/python2.7
 	ctags -R -a --languages=python --python-kinds=-v ${VIRTUAL_ENV}/src
