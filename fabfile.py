@@ -1,6 +1,7 @@
 from os.path import join, exists
-from fabric.api import run, env, local, sudo, put, require, cd
+from fabric.api import run, env, local, sudo, put, require, cd, roles, task
 from fabric.contrib.project import rsync_project
+from fabric.context_managers import prefix
 
 RSYNC_EXCLUDE = (
     '.git',
@@ -16,6 +17,7 @@ RSYNC_EXCLUDE = (
 
 env.home = '/srv/django'
 env.project = '{{ project_name }}'
+env.requirements_file = 'config/requirements.pip'
 
 
 def _setup_path():
@@ -23,22 +25,33 @@ def _setup_path():
     env.code_root = join(env.root, env.project)
 
 
+@task
 def staging():
     env.user = 'django'
     env.environment = 'staging'
     env.domain = "{{ project_name }}.strycore.com"
-    env.hosts = [env.domain]
+    env.roledefs = {
+        'web': [env.domain],
+    }
     _setup_path()
 
 
+@task
 def production():
     env.user = 'django'
     env.environment = 'production'
     env.domain = '{{ project_name }}.com'
-    env.hosts = [env.domain]
+    env.roledefs = {
+        'web': [env.domain],
+    }
     _setup_path()
 
 
+def activate():
+    return prefix('source %s/bin/activate' % env.root)
+
+
+@task
 def touch():
     """Touch wsgi file to trigger reload."""
     require('code_root', provided_by=('staging', 'production'))
@@ -47,10 +60,14 @@ def touch():
         run('touch wsgi.py')
 
 
+@task
+@roles('web')
 def apache_reload():
     sudo('service apache2 reload', shell=False)
 
 
+@task
+@roles('web')
 def setup():
     """Setup virtualenv"""
     run('mkdir -p %(root)s' % env)
@@ -58,13 +75,16 @@ def setup():
         run('virtualenv --no-site-packages .')
 
 
+@task
+@roles('web')
 def requirements():
-    put('requirements.txt', env.root)
-    with cd(env.root):
-        run('source ./bin/activate && '
-            'pip install --requirement requirements.txt')
+    with cd(env.code_root):
+        with activate():
+            run('pip install --requirement {0}'.format(env.requirements_file))
 
 
+@task
+@roles('web')
 def update_vhost():
     local('cp config/%(project)s.vhost /tmp' % env)
     local('sed -i s#%%ROOT%%#%(root)s#g /tmp/%(project)s.vhost' % env)
@@ -77,6 +97,8 @@ def update_vhost():
     sudo('a2ensite %(domain)s' % env, shell=False)
 
 
+@task
+@roles('web')
 def rsync():
     require('root', provided_by=('staging', 'production'))
     extra_opts = '--omit-dir-times'
@@ -88,8 +110,9 @@ def rsync():
     )
 
 
+@task
+@roles('web')
 def copy_local_settings():
-    require('code_root', provided_by=('staging', 'production'))
     local_settings = 'config/local_settings_%(environment)s.py' % env
     if exists(local_settings):
         put(local_settings, env.code_root)
@@ -97,30 +120,46 @@ def copy_local_settings():
             run('mv local_settings_%(environment)s.py %(project)s/local_settings.py' % env)
 
 
+@task
+@roles('web')
 def syncdb():
     require('code_root', provided_by=('stating', 'production'))
     with cd(env.code_root):
-        run("source ../bin/activate; "
-            "python manage.py syncdb --noinput")
+        with activate():
+            run("python manage.py syncdb --noinput")
 
 
+@task
+@roles('web')
+def pull():
+    with cd(env.code_root):
+        run('git pull')
+
+
+@task
+@roles('web')
 def migrate():
-    require('code_root', provided_by=('stating', 'production'))
     with cd(env.code_root):
-        run("source ../bin/activate; "
-            "python manage.py migrate")
+        with activate():
+            run("python manage.py migrate")
 
 
+@task
+@roles('web')
 def collectstatic():
-    require('code_root', provided_by=('stating', 'production'))
     with cd(env.code_root):
-        run('source ../bin/activate; python manage.py collectstatic --noinput')
+        with activate():
+            run('python manage.py collectstatic --noinput')
 
 
+@task
+@roles('web')
 def configtest():
     sudo("apache2ctl configtest")
 
 
+@task
+@roles('web')
 def fix_perms(user="www-data"):
     with cd(env.code_root):
         run("mkdir -p media")
@@ -131,9 +170,11 @@ def fix_perms(user="www-data"):
         sudo("chown -R %s.%s static" % (user, user))
 
 
+@task
+@roles('web')
 def deploy():
-    requirements()
     rsync()
+    requirements()
     fix_perms(env.user)
     copy_local_settings()
     collectstatic()
@@ -141,3 +182,10 @@ def deploy():
     configtest()
     fix_perms()
     apache_reload()
+
+
+@task
+@roles('web')
+def fastdeploy():
+    rsync()
+    touch()
