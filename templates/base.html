@@ -12,6 +12,7 @@
     <meta name="description" content="">
     <link type="text/plain" rel="author" href="/humans.txt">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
+    <script src="{{ STATIC_URL }}jquery/jquery.js"></script>
     {% compress css %}
     <link type="text/less" rel="stylesheet" href="{{ STATIC_URL }}bootstrap/less/bootstrap.less" charset="utf-8">
     <style type="text/css">
@@ -96,7 +97,6 @@
   </div>
 {% compress js %}
 
-<script src="{{ STATIC_URL }}jquery/jquery.js"></script>
 <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-transition.js"></script>
 <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-alert.js"></script>
 <script src="{{ STATIC_URL }}bootstrap/js/bootstrap-modal.js"></script>
