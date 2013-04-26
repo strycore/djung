@@ -16,6 +16,8 @@ test:
 
 deps:
 	pip install -r config/requirements.pip --exists-action=s --verbose
+	sudo npm install bower -g
+	sudo npm install less -g
 
 clean:
 	find . -name "*.pyc" -delete
