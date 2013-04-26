@@ -9,6 +9,7 @@ These components are:
 - [Django Compressor](http://django_compressor.readthedocs.org/en/latest/index.html)
 - [South](http://south.aeracode.org/)
 - [Fabric](http://docs.fabfile.org)
+- [Nose](https://nose.readthedocs.org/en/latest/)
 
 Some frontend components are also shipped inside the project:
 - [jQuery](http://jquery.com/)
@@ -25,7 +26,7 @@ You can quickly create a django project using this boilerplate with django-admin
 
     django-admin.py startproject --template https://github.com/strycore/djung/zipball/master project_name
 
-Oneliner to create a project and push it to your staging server (assumes you 
+Oneliner to create a project and push it to your staging server (assumes you
 have cloned the repository and changed the domain in fabfile.py)
 
     mkvirtualenv -i django foo; django-admin.py startproject --template djung foo; cd foo; fab staging setup; fab staging deploy
