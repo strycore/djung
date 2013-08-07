@@ -11,6 +11,11 @@ module.exports = function(grunt) {
             'public/css/main.css': ['main/static/css/main.less']
         }
       },
+      css: {
+        files: {
+          'public/css/main.css': ['main/static/css/main.less']
+        }
+      },
       min: {
         options: {
             compress: true
@@ -27,7 +32,7 @@ module.exports = function(grunt) {
       },
       jquery: {
         files: {
-          'public/js/jquery.min.js': ['components/jquery/jquery.js'] 
+          'public/js/jquery.min.js': ['components/jquery/jquery.js']
         }
       },
       bootstrap: {
@@ -44,7 +49,7 @@ module.exports = function(grunt) {
     watch: {
       recess: {
         files: 'main/static/css/main.less',
-        tasks: ['recess']
+        tasks: ['recess:css']
       }
     }
   });
