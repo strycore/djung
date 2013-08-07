@@ -41,9 +41,16 @@ module.exports = function(grunt) {
         }
       }
     },
+    watch: {
+      recess: {
+        files: 'main/static/css/main.less',
+        tasks: ['recess']
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-recess');
 
   grunt.registerTask('default', ['recess', 'uglify']);
