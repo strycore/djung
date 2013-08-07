@@ -47,6 +47,9 @@ module.exports = function(grunt) {
       }
     },
     watch: {
+      options: {
+        livereload: true
+      },
       recess: {
         files: 'main/static/css/main.less',
         tasks: ['recess:css']
