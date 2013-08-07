@@ -37,7 +37,7 @@ module.exports = function(grunt) {
       },
       modernizr: {
         files: {
-          'public/js/modernizr.js': ['components/modernizr/modernizr.js']
+          'public/js/modernizr.min.js': ['components/modernizr/modernizr.js']
         }
       }
     },
