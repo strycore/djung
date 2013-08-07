@@ -7,7 +7,8 @@ module.exports = function(grunt) {
       },
       bootstrap: {
         files: {
-            'public/css/bootstrap.css': ['components/bootstrap/less/bootstrap.less']
+            'public/css/bootstrap.css': ['components/bootstrap/less/bootstrap.less'],
+            'public/css/main.css': ['main/static/css/main.less']
         }
       },
       min: {
@@ -15,7 +16,8 @@ module.exports = function(grunt) {
             compress: true
         },
         files: {
-            'public/css/bootstrap.min.css': ['components/bootstrap/less/bootstrap.less']     
+            'public/css/bootstrap.min.css': ['components/bootstrap/less/bootstrap.less'],
+            'public/css/main.min.css': ['main/static/css/main.less']
         }
       }
     },
@@ -23,9 +25,20 @@ module.exports = function(grunt) {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
       },
-      build: {
-        src: 'components/jquery/jquery.js',
-        dest: 'public/js/jquery.min.js'
+      jquery: {
+        files: {
+          'public/js/jquery.min.js': ['components/jquery/jquery.js'] 
+        }
+      },
+      bootstrap: {
+        files: {
+          'public/js/bootstrap.min.js': ['components/bootstrap/js/*.js']
+        }
+      },
+      modernizr: {
+        files: {
+          'public/js/modernizr.js': ['components/modernizr/modernizr.js']
+        }
       }
     },
   });
