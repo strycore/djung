@@ -26,6 +26,13 @@ module.exports = function(grunt) {
         }
       }
     },
+    coffee: {
+      compile: {
+        files: {
+          'public/js/app.js': 'main/static/scripts/main.coffee'
+        }
+      }
+    },
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
@@ -44,6 +51,11 @@ module.exports = function(grunt) {
         files: {
           'public/js/modernizr.min.js': ['components/modernizr/modernizr.js']
         }
+      },
+      app: {
+        files: {
+          'public/js/app.min.js': ['public/js/app.js']
+        }
       }
     },
     watch: {
@@ -57,6 +69,10 @@ module.exports = function(grunt) {
       bootstrap: {
         files: 'main/static/css/bootstrap-overrides.less',
         tasks: ['less']
+      },
+      coffee: {
+        files: ['main/static/scripts/main.coffee'],
+        tasks: ['coffee']
       }
     }
   });
@@ -64,6 +80,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
 
-  grunt.registerTask('default', ['recess', 'uglify']);
+  grunt.registerTask('default', ['less', 'coffee', 'uglify']);
 };
