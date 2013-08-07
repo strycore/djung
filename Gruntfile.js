@@ -1,14 +1,13 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    recess: {
-      options: {
-        compile: true
-      },
+    less: {
       bootstrap: {
+        options: {
+            paths: 'components/bootstrap/less/'
+        },
         files: {
-            'public/css/bootstrap.css': ['components/bootstrap/less/bootstrap.less'],
-            'public/css/main.css': ['main/static/css/main.less']
+            'public/css/bootstrap.css': ['main/static/css/bootstrap-overrides.less'],
         }
       },
       css: {
@@ -18,10 +17,11 @@ module.exports = function(grunt) {
       },
       min: {
         options: {
-            compress: true
+            yuicompress: true,
+            paths: 'components/bootstrap/less/'
         },
         files: {
-            'public/css/bootstrap.min.css': ['components/bootstrap/less/bootstrap.less'],
+            'public/css/bootstrap.min.css': ['main/static/css/bootstrap-overrides.less'],
             'public/css/main.min.css': ['main/static/css/main.less']
         }
       }
@@ -50,16 +50,20 @@ module.exports = function(grunt) {
       options: {
         livereload: true
       },
-      recess: {
+      less: {
         files: 'main/static/css/main.less',
-        tasks: ['recess:css']
+        tasks: ['less:css']
+      },
+      bootstrap: {
+        files: 'main/static/css/bootstrap-overrides.less',
+        tasks: ['less']
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-recess');
+  grunt.loadNpmTasks('grunt-contrib-less');
 
   grunt.registerTask('default', ['recess', 'uglify']);
 };
