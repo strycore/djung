@@ -4,3 +4,5 @@ Fabric
 South
 nose
 django-nose
+celery
+django-celery
