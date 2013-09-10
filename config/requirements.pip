@@ -1,5 +1,4 @@
-Django
-django-compressor
+Django>=1.5.1
 Fabric
 South
 nose

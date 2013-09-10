@@ -6,18 +6,19 @@ Boilerplate for Django projects
 This boilerplate sets a standard Django project along with common components.
 These components are:
 
-- [Django Compressor](http://django_compressor.readthedocs.org/en/latest/index.html)
-- [South](http://south.aeracode.org/)
-- [Fabric](http://docs.fabfile.org)
-- [Nose](https://nose.readthedocs.org/en/latest/)
+- [South](http://south.aeracode.org/): Database migrations
+- [Fabric](http://docs.fabfile.org): Website deployment
+- [Nose](https://nose.readthedocs.org/en/latest/): Test framework
 
-Some frontend components are also shipped inside the project:
+Frontend libraries are available with [bower](https://github.com/twitter/bower):
 - [jQuery](http://jquery.com/)
 - [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
-- [HTML5 Boilerplate](http://html5boilerplate.com/)
+- [Modernizr](http://modernizr.com/)
 
-Reusable frontend components are installed with [bower](https://github.com/twitter/bower)
-inside the 'components' folder.
+To install them, run `bower install`.
+
+Djung uses Grunt to compile and minify css and js. It is configured for use
+with livereload which you can enable by running `grunt watch`
 
 Basic usage
 -----------
