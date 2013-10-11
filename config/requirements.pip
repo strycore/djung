@@ -7,3 +7,5 @@ django-nose
 pyjade
 ipython
 ipdb
+celery
+django-celery

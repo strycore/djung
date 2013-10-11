@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 from os.path import join, dirname, abspath
 
 PROJECT_ROOT = dirname(dirname(abspath(__file__)))
@@ -34,6 +35,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 
     'south',
+    'djcelery',
 
     'main',
 )
@@ -138,6 +140,16 @@ LOGGING = {
         },
     }
 }
+
+if "test" in sys.argv:
+    CELERY_ALWAYS_EAGER = True
+    CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
+
+CELERY_SEND_TASK_ERROR_EMAILS = True
+CELERY_ROUTES = {
+    'main.tasks.dummy_task': {'queue': 'project_name'}
+}
+
 
 try:
     from local_settings import *
