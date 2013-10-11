@@ -65,8 +65,10 @@ STATICFILES_FINDERS = (
 
 # Templates
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
+    ('pyjade.ext.django.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
 )
 TEMPLATE_DIRS = (
     join(PROJECT_ROOT, 'templates'),
