@@ -7,6 +7,7 @@
 
     WSGIScriptAlias / %ROOT%/%PROJECT%/%PROJECT%/wsgi.py
 
+    DocumentRoot %ROOT%/%PROJECT%
     ServerName %DOMAIN%
     ServerAlias www.%DOMAIN%
 
