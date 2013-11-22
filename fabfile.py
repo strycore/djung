@@ -86,13 +86,13 @@ def requirements():
 @task
 @roles('web')
 def update_vhost():
-    local('cp config/%(project)s.vhost /tmp' % env)
-    local('sed -i s#%%ROOT%%#%(root)s#g /tmp/%(project)s.vhost' % env)
-    local('sed -i s/%%PROJECT%%/%(project)s/g /tmp/%(project)s.vhost' % env)
-    local('sed -i s/%%ENV%%/%(environment)s/g /tmp/%(project)s.vhost' % env)
-    local('sed -i s/%%DOMAIN%%/%(domain)s/g /tmp/%(project)s.vhost' % env)
-    put('/tmp/%(project)s.vhost' % env, '%(root)s' % env)
-    sudo('cp %(root)s/%(project)s.vhost ' % env +
+    local('cp config/%(project)s.conf /tmp' % env)
+    local('sed -i s#%%ROOT%%#%(root)s#g /tmp/%(project)s.conf' % env)
+    local('sed -i s/%%PROJECT%%/%(project)s/g /tmp/%(project)s.conf' % env)
+    local('sed -i s/%%ENV%%/%(environment)s/g /tmp/%(project)s.conf' % env)
+    local('sed -i s/%%DOMAIN%%/%(domain)s/g /tmp/%(project)s.conf' % env)
+    put('/tmp/%(project)s.conf' % env, '%(root)s' % env)
+    sudo('cp %(root)s/%(project)s.conf ' % env +
          '/etc/apache2/sites-available/%(domain)s' % env, shell=False)
     sudo('a2ensite %(domain)s' % env, shell=False)
 
