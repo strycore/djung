@@ -15,13 +15,6 @@ WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 SECRET_KEY = '{{ secret_key }}'
 ALLOWED_HOSTS = ('{{ project_name }}.strycore.com', )
 
-# Databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'dev.db',
-    }
-}
 
 # Apps
 INSTALLED_APPS = (
