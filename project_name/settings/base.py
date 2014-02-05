@@ -2,7 +2,7 @@
 import sys
 from os.path import join, dirname, abspath
 
-PROJECT_ROOT = dirname(dirname(abspath(__file__)))
+PROJECT_ROOT = dirname(dirname(dirname(abspath(__file__))))
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 ADMINS = (
@@ -144,9 +144,3 @@ CELERY_SEND_TASK_ERROR_EMAILS = True
 CELERY_ROUTES = {
     'main.tasks.dummy_task': {'queue': 'project_name'}
 }
-
-
-try:
-    from local_settings import *
-except ImportError:
-    pass
