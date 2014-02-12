@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import sys
 from os.path import join, dirname, abspath
 
@@ -12,7 +13,7 @@ MANAGERS = ADMINS
 SITE_ID = 1
 ROOT_URLCONF = '{{ project_name }}.urls'
 WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
-SECRET_KEY = '{{ secret_key }}'
+SECRET_KEY = os.environ['SECRET_KEY']
 ALLOWED_HOSTS = ('{{ project_name }}.strycore.com', )
 
 
