@@ -19,6 +19,9 @@ deps:
 	npm install
 	bower install
 
+systemdeps:
+	apt-get install -y postgresql libpq-dev python-dev supervisor nginx
+
 clean:
 	find . -name "*.pyc" -delete
 
