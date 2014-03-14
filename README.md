@@ -8,12 +8,18 @@ These components are:
 
 - [South](http://south.aeracode.org/): Database migrations
 - [Fabric](http://docs.fabfile.org): Website deployment
+- [Celery](http://www.celeryproject.org/): Async and distributed task queue
 - [Nose](https://nose.readthedocs.org/en/latest/): Test framework
 
 Frontend libraries are available with [bower](https://github.com/twitter/bower):
 - [jQuery](http://jquery.com/)
 - [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
 - [Modernizr](http://modernizr.com/)
+
+On the server, the project is configured by default to use:
+- [Nginx](http://nginx.com)
+- [PostgreSQL](http://www.postgresql.org/)
+- [Supervisor](http://supervisord.org/)
 
 To install them, run `bower install`.
 
