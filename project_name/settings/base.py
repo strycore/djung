@@ -27,9 +27,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
-
     'south',
-    'djcelery',
 
     'main',
 )
@@ -140,6 +138,4 @@ if "test" in sys.argv:
     CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
 
 CELERY_SEND_TASK_ERROR_EMAILS = True
-CELERY_ROUTES = {
-    'main.tasks.dummy_task': {'queue': 'project_name'}
-}
+BROKER_URL = 'amqp://guest:guest@localhost//'

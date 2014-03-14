@@ -7,4 +7,3 @@ django-nose
 ipython
 ipdb
 celery
-django-celery
