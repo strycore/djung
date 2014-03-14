@@ -15,7 +15,7 @@ RSYNC_EXCLUDE = (
     'static'
 )
 
-env.home = '/srv/django'
+env.home = '/srv/{{ project_name }}'
 env.project = '{{ project_name }}'
 env.requirements_file = 'config/requirements.pip'
 
