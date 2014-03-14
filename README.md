@@ -16,15 +16,17 @@ Frontend libraries are available with [bower](https://github.com/twitter/bower):
 - [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
 - [Modernizr](http://modernizr.com/)
 
-On the server, the project is configured by default to use:
-- [Nginx](http://nginx.com)
-- [PostgreSQL](http://www.postgresql.org/)
-- [Supervisor](http://supervisord.org/)
-
 To install them, run `bower install`.
 
 Djung uses Grunt to compile and minify css and js. It is configured for use
 with livereload which you can enable by running `grunt watch`
+
+On the server, the project is configured by default to use:
+- [Nginx](http://nginx.com)
+- [PostgreSQL](http://www.postgresql.org/)
+- [Supervisor](http://supervisord.org/)
+- [Gunicorn](http://gunicorn.org/)
+
 
 Basic usage
 -----------
