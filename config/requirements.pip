@@ -4,7 +4,6 @@ Pillow>=2.1.0
 Fabric
 nose
 django-nose
-pyjade
 ipython
 ipdb
 celery
