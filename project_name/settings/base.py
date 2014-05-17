@@ -29,7 +29,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'south',
 
-    'main',
+    'core',
 )
 
 # Nosetests
