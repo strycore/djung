@@ -32,7 +32,7 @@ migrate:
 	./manage.py migrate
 
 dumpfixtures:
-	./manage.py dumpdata --indent=2 main > main/fixtures/initial_data.json
+	./manage.py dumpdata --indent=2 core > core/fixtures/initial_data.json
 
 messages:
 	django-admin.py makemessages -l fr_FR

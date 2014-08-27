@@ -7,12 +7,12 @@ module.exports = function(grunt) {
             paths: 'components/bootstrap/less/'
         },
         files: {
-            'public/css/bootstrap.css': ['main/static/css/bootstrap-overrides.less'],
+            'public/css/bootstrap.css': ['core/static/css/bootstrap-overrides.less'],
         }
       },
       css: {
         files: {
-          'public/css/main.css': ['main/static/css/main.less']
+          'public/css/project_name.css': ['core/static/css/project_name.less']
         }
       },
       min: {
@@ -21,15 +21,15 @@ module.exports = function(grunt) {
             paths: 'components/bootstrap/less/'
         },
         files: {
-            'public/css/bootstrap.min.css': ['main/static/css/bootstrap-overrides.less'],
-            'public/css/main.min.css': ['main/static/css/main.less']
+            'public/css/bootstrap.min.css': ['core/static/css/bootstrap-overrides.less'],
+            'public/css/project_name.min.css': ['core/static/css/project_name.less']
         }
       }
     },
     coffee: {
       compile: {
         files: {
-          'public/js/app.js': 'main/static/scripts/main.coffee'
+          'public/js/app.js': 'core/static/scripts/project_name.coffee'
         }
       }
     },
@@ -63,15 +63,15 @@ module.exports = function(grunt) {
         livereload: true
       },
       less: {
-        files: 'main/static/css/main.less',
+        files: 'core/static/css/project_name.less',
         tasks: ['less:css']
       },
       bootstrap: {
-        files: 'main/static/css/bootstrap-overrides.less',
+        files: 'core/static/css/bootstrap-overrides.less',
         tasks: ['less']
       },
       coffee: {
-        files: ['main/static/scripts/main.coffee'],
+        files: ['core/static/scripts/project_name.coffee'],
         tasks: ['coffee']
       }
     }

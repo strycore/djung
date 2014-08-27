@@ -126,7 +126,7 @@ LOGGING = {
             'handlers': ['mail_admins', 'syslog'],
             'level': 'ERROR',
         },
-        'main': {
+        'core': {
             'handlers': ['mail_admins', 'syslog'],
             'level': 'ERROR',
         },
