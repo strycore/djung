@@ -1,5 +1,9 @@
 from .base import *  # noqa
 
+INSTALLED_APPS += (
+    'devserver',
+)
+
 DEBUG = True
 
 # Databases
