@@ -1,0 +1,5 @@
+-r base.pip
+Fabric
+nose
+django-nose
+django-devserver

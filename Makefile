@@ -15,7 +15,7 @@ test:
 	./manage.py test
 
 deps:
-	pip install -r config/requirements.pip --exists-action=s
+	pip install -r config/requirements/local.pip --exists-action=s
 	npm install
 	bower install
 
