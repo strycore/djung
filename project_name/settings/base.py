@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-from os.path import join, dirname, abspath
+from os.path import dirname, abspath
 
 PROJECT_ROOT = dirname(dirname(dirname(abspath(__file__))))
 DEBUG = True
@@ -19,14 +19,13 @@ ALLOWED_HOSTS = ('{{ project_name }}.strycore.com', )
 
 # Apps
 INSTALLED_APPS = (
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'django.contrib.admindocs',
 
     'core',
     'accounts',
@@ -40,12 +39,12 @@ USE_L10N = True
 USE_TZ = True
 
 # Static / Media files
-MEDIA_ROOT = join(PROJECT_ROOT, 'media')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
-STATIC_ROOT = join(PROJECT_ROOT, 'static')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    join(PROJECT_ROOT, 'public'),
+    os.path.join(PROJECT_ROOT, 'public'),
 )
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -58,7 +57,7 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 TEMPLATE_DIRS = (
-    join(PROJECT_ROOT, 'templates'),
+    os.path.join(PROJECT_ROOT, 'templates'),
 )
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
