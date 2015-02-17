@@ -30,6 +30,7 @@ INSTALLED_APPS = (
     'south',
 
     'core',
+    'accounts',
 )
 
 # Nosetests
@@ -82,7 +83,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-# Authentication / Registration (may need Django-Registration)
+# Authentication / Users
+ACCOUNT_USER_MODEL = 'accounts.User'
 ACCOUNT_ACTIVATION_DAYS = 3
 LOGIN_REDIRECT_URL = "/"
 
@@ -127,6 +129,10 @@ LOGGING = {
             'level': 'ERROR',
         },
         'core': {
+            'handlers': ['mail_admins', 'syslog'],
+            'level': 'ERROR',
+        },
+        'accounts': {
             'handlers': ['mail_admins', 'syslog'],
             'level': 'ERROR',
         },
