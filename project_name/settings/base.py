@@ -3,14 +3,13 @@ import os
 import sys
 from os.path import dirname, abspath
 
-PROJECT_ROOT = dirname(dirname(dirname(abspath(__file__))))
+BASE_DIR= dirname(dirname(dirname(abspath(__file__))))
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 ADMINS = (
     ('Your Name', 'yourname@{{ project_name }}.com'),
 )
 MANAGERS = ADMINS
-SITE_ID = 1
 ROOT_URLCONF = '{{ project_name }}.urls'
 WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 SECRET_KEY = os.environ['SECRET_KEY']
@@ -23,7 +22,6 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
@@ -39,12 +37,12 @@ USE_L10N = True
 USE_TZ = True
 
 # Static / Media files
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'public'),
+    os.path.join(BASE_DIR, 'public'),
 )
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -52,12 +50,8 @@ STATICFILES_FINDERS = (
 )
 
 # Templates
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, 'templates'),
+    os.path.join(BASE_DIR, 'templates'),
 )
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.debug',
