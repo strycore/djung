@@ -10,9 +10,8 @@ run:
 setupenv:
 	cp config/envvars ${VIRTUAL_ENV}/bin/postactivate
 
-db:
-	./manage.py syncdb --noinput
-	./manage.py migrate
+migrate:
+	./manage.py migrate --noinput
 
 test:
 	./manage.py test
@@ -27,12 +26,6 @@ systemdeps:
 
 clean:
 	find . -name "*.pyc" -delete
-
-migration:
-	./manage.py schemamigration $(app) --auto
-
-migrate:
-	./manage.py migrate
 
 dumpfixtures:
 	./manage.py dumpdata --indent=2 core > core/fixtures/initial_data.json
