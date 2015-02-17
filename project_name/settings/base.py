@@ -82,7 +82,7 @@ MIDDLEWARE_CLASSES = (
 
 
 # Authentication / Users
-ACCOUNT_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'accounts.User'
 ACCOUNT_ACTIVATION_DAYS = 3
 LOGIN_REDIRECT_URL = "/"
 
