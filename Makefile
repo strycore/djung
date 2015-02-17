@@ -7,6 +7,9 @@ MYSQL_BACKUP = "backup-`date +%Y-%m-%d-%H-%M`.sql"
 run:
 	./manage.py runserver
 
+setupenv:
+	cp config/envvars ${VIRTUAL_ENV}/bin/postactivate
+
 db:
 	./manage.py syncdb --noinput
 	./manage.py migrate
