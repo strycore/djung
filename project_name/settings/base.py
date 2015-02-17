@@ -32,7 +32,7 @@ INSTALLED_APPS = (
 )
 
 # Localization
-TIME_ZONE = 'Europe/Paris'
+TIME_ZONE = 'UTC'
 LANGUAGE_CODE = 'en-us'
 USE_I18N = True
 USE_L10N = True
@@ -71,12 +71,15 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 # Middleware
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
 
 # Authentication / Users
 ACCOUNT_USER_MODEL = 'accounts.User'
