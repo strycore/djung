@@ -27,14 +27,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'south',
 
     'core',
     'accounts',
 )
-
-# Nosetests
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Localization
 TIME_ZONE = 'Europe/Paris'
