@@ -1,6 +1,6 @@
 {
   "name": "djung",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -9,8 +9,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.0",
-    "jquery": "~1.10",
-    "modernizr": "~2.6.2"
+    "bootstrap": "~3.3",
+    "jquery": "~1.11",
+    "modernizr": "~2.8"
   }
 }
