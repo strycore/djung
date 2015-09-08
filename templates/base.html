@@ -53,8 +53,8 @@
           {% if user.is_authenticated %}
             <li>Logged in as <a href="#" class="navbar-link">Username</a></li>
           {% else %}
-            <li><a class="btn" href="{% url "accounts_login" %}">Login</a></li>
-            <li><a class="btn" href="{% url "accounts_register" %}">Register</a></li>
+            <li><a href="{% url "accounts_login" %}">Login</a></li>
+            <li><a href="{% url "accounts_register" %}">Register</a></li>
           {% endif %}
         </ul>
       </div>
