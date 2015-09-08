@@ -40,7 +40,12 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <p class="navbar-text pull-right">
-      Logged in as <a href="#" class="navbar-link">Username</a>
+      {% if user.is_authenticated %}
+        Logged in as <a href="#" class="navbar-link">Username</a>
+      {% else %}
+        <a class="btn" href="{% url "accounts_login" %}">Login</a>
+        <a class="btn" href="{% url "accounts_register" %}">Register</a>
+      {% endif %}
     </p>
   </div>
 
