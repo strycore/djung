@@ -12,7 +12,7 @@ module.exports = function(grunt) {
       },
       css: {
         files: {
-          'public/css/project_name.css': ['core/static/css/project_name.less']
+          'public/css/{{project_name}}.css': ['core/static/css/{{project_name}}.less']
         }
       },
       min: {
@@ -22,14 +22,14 @@ module.exports = function(grunt) {
         },
         files: {
             'public/css/bootstrap.min.css': ['core/static/css/bootstrap-overrides.less'],
-            'public/css/project_name.min.css': ['core/static/css/project_name.less']
+            'public/css/{{project_name}}.min.css': ['core/static/css/{{project_name}}.less']
         }
       }
     },
     coffee: {
       compile: {
         files: {
-          'public/js/app.js': 'core/static/scripts/project_name.coffee'
+          'public/js/app.js': 'core/static/scripts/{{project_name}}.coffee'
         }
       }
     },
@@ -39,12 +39,12 @@ module.exports = function(grunt) {
       },
       jquery: {
         files: {
-          'public/js/jquery.min.js': ['components/jquery/jquery.js']
+          'public/js/jquery.min.js': ['components/jquery/dist/jquery.js']
         }
       },
       bootstrap: {
         files: {
-          'public/js/bootstrap.min.js': ['components/bootstrap/js/*.js']
+          'public/js/bootstrap.min.js': ['components/bootstrap/dist/js/bootstrap.min.js']
         }
       },
       modernizr: {
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
         livereload: true
       },
       less: {
-        files: 'core/static/css/project_name.less',
+        files: 'core/static/css/{{project_name}}.less',
         tasks: ['less:css']
       },
       bootstrap: {
@@ -71,7 +71,7 @@ module.exports = function(grunt) {
         tasks: ['less']
       },
       coffee: {
-        files: ['core/static/scripts/project_name.coffee'],
+        files: ['core/static/scripts/{{project_name}}.coffee'],
         tasks: ['coffee']
       }
     }
