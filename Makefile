@@ -19,7 +19,7 @@ systemdeps:
 	apt-get install -y postgresql libpq-dev python-dev supervisor nginx
 
 clean:
-	find . -name "*.pyc" -delete
+	pyclean .
 
 dumpfixtures:
 	./manage.py dumpdata --indent=2 core > core/fixtures/initial_data.json
