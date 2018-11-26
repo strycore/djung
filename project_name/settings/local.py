@@ -1,9 +1,14 @@
 import os
 from .base import *  # noqa
 
-INSTALLED_APPS += (
-    'devserver',
-)
+# INSTALLED_APPS += [
+#     'devserver',
+# ]
+
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost'
+]
 
 DEBUG = True
 

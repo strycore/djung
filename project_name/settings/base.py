@@ -1,23 +1,23 @@
-# -*- coding: utf-8 -*-
+"""Django settings for django2 project."""
 import os
 import sys
-from os.path import dirname, abspath
 
-BASE_DIR= dirname(dirname(dirname(abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__)
+)))
+SECRET_KEY = os.environ.get('SECRET_KEY', 'default_key')
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-ADMINS = (
-    ('Your Name', 'yourname@{{ project_name }}.com'),
-)
-MANAGERS = ADMINS
-ROOT_URLCONF = '{{ project_name }}.urls'
-WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
-SECRET_KEY = os.environ['SECRET_KEY']
-ALLOWED_HOSTS = ('{{ project_name }}.strycore.com', )
+ALLOWED_HOSTS = [
+    '{{ project_name }}.strycore.com',
+]
 
+ADMINS = [
+    ('Your Name', 'yourname@{{ project_name }}.com'),
+]
+MANAGERS = ADMINS
 
 # Apps
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -27,11 +27,50 @@ INSTALLED_APPS = (
 
     'core',
     'accounts',
-)
+]
 
-# Localization
-TIME_ZONE = 'UTC'
+ROOT_URLCONF = '{{ project_name }}.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
+
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+
+# Internationalization
+# https://docs.djangoproject.com/en/2.1/topics/i18n/
+
 LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -49,20 +88,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-# Templates
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.request',
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-)
-
 # Middleware
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -74,7 +99,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-
 # Authentication / Users
 AUTH_USER_MODEL = 'accounts.User'
 ACCOUNT_ACTIVATION_DAYS = 3
@@ -82,7 +106,7 @@ LOGIN_REDIRECT_URL = "/"
 
 # Email
 DEFAULT_FROM_EMAIL = "admin@{{ project_name }}.com"
-EMAIL_SUBJECT_PREFIX = "{{ project_name }}"
+EMAIL_SUBJECT_PREFIX = "[{{ project_name }}]"
 
 # Logging
 LOGGING = {
