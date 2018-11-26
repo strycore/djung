@@ -1,3 +1,0 @@
--r base.pip
-Fabric==1.10.1
-django-devserver==0.8.0
