@@ -11,9 +11,7 @@ test:
 	./manage.py test
 
 deps:
-	pip install -r config/requirements/local.pip --exists-action=s
-	npm install
-	bower install
+	pipenv install 
 
 systemdeps:
 	apt-get install -y postgresql libpq-dev python-dev supervisor nginx

@@ -9,16 +9,6 @@ These components are:
 - [Fabric](http://docs.fabfile.org): Website deployment
 - [Celery](http://www.celeryproject.org/): Async and distributed task queue
 
-Frontend libraries are available with [bower](https://github.com/twitter/bower):
-- [jQuery](http://jquery.com/)
-- [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
-- [Modernizr](http://modernizr.com/)
-
-To install them, run `bower install`.
-
-Djung uses Grunt to compile and minify css and js. It is configured for use
-with livereload which you can enable by running `grunt watch`
-
 On the server, the project is configured by default to use:
 - [Nginx](http://nginx.com)
 - [PostgreSQL](http://www.postgresql.org/)
