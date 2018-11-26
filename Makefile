@@ -1,9 +1,3 @@
-
-MYSQL_PASSWORD = `DJANGO_SETTINGS_MODULE=settings python -c "from django.conf import settings; print settings.DATABASES['default']['PASSWORD']"`
-MYSQL_USER = `DJANGO_SETTINGS_MODULE=settings python -c "from django.conf import settings; print settings.DATABASES['default']['USER']"`
-MYSQL_DB = `DJANGO_SETTINGS_MODULE=settings python -c "from django.conf import settings; print settings.DATABASES['default']['NAME']"`
-MYSQL_BACKUP = "backup-`date +%Y-%m-%d-%H-%M`.sql"
-
 run:
 	./manage.py runserver
 
@@ -35,11 +29,6 @@ messages:
 
 compilemessages:
 	django-admin.py compilemessages
-
-mysqlbackup:
-	@mysqldump -u $(MYSQL_USER) -p$(MYSQL_PASSWORD) $(MYSQL_DB) > $(MYSQL_BACKUP)
-	@gzip $(MYSQL_BACKUP)
-	@echo "$(MYSQL_BACKUP).gz"
 
 pylint:
 	pylint --rcfile=config/pylintrc .
