@@ -1,0 +1,19 @@
+{
+  "name": "djung",
+  "version": "1.0.0",
+  "description": "A Django project template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strycore/djung.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/strycore/djung/issues"
+  },
+  "homepage": "https://github.com/strycore/djung#readme"
+}
