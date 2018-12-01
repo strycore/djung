@@ -7,8 +7,10 @@ local_settings.py
 /static/*
 node_modules
 components
+public/*bundle.js
 public/css/*
 public/js/*
+public/vendor/*
 
 tags
 PYSMELL*
