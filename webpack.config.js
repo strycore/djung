@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Assets = [
   "bootstrap/dist/css/bootstrap.css",
   "jquery/dist/jquery.min.js",
+  "popper.js/dist/popper.min.js",
   "bootstrap/dist/js/bootstrap.min.js",
 ];
 
